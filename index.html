@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ điều hành Win999 - Lỗi 20/10</title>
+    <style>
+        body {
+            /* TRẠNG THÁI 1 (LỖI): Nền đen, lưới xanh lá kiểu hacker/hệ thống */
+            background-color: #050505; 
+            background-image: 
+              linear-gradient(rgba(0, 255, 0, 0.15) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 255, 0, 0.15) 1px, transparent 1px);
+            background-size: 30px 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0 60px 0;
+            box-sizing: border-box;
+            font-family: 'MS Sans Serif', Tahoma, sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.8s ease, background-image 0.8s ease;
+        }
+
+        /* TRẠNG THÁI 2 (VUI TƯƠI): Được đổi màu khi click */
+        body.happy-mode {
+            background-color: #dbe9f4; 
+            background-image: radial-gradient(#a3c2db 3px, transparent 3px);
+            background-size: 30px 30px;
+        }
+
+        /* Giao diện cửa sổ retro Win999 */
+        .win-window {
+            background: #c0c0c0;
+            border-top: 3px solid #ffffff;
+            border-left: 3px solid #ffffff;
+            border-right: 3px solid #000000;
+            border-bottom: 3px solid #000000;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+            z-index: 10;
+            animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transition: box-shadow 0.8s ease;
+        }
+
+        body.happy-mode .win-window {
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.15);
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            color: white;
+            padding: 5px 8px;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: #c0c0c0;
+            color: black;
+            border-top: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            width: 22px;
+            height: 22px;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:active {
+            border-top: 2px solid #000000;
+            border-left: 2px solid #000000;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .alert-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon {
+            font-size: 45px;
+        }
+
+        .message {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #000;
+        }
+
+        /* Khung nhạc Spotify Embed */
+        .spotify-container {
+            display: none;
+            margin-top: 5px;
+            background: #a0a0a0;
+            padding: 8px;
+            border-top: 2px solid #000000;
+            border-left: 2px solid #000000;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            text-align: center;
+        }
+
+        .spotify-title {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #000080;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .spotify-iframe {
+            width: 100%;
+            height: 152px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .qr-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 8px;
+            padding: 8px;
+            background: #ececec;
+            border: 1px dashed #808080;
+        }
+
+        .qr-img {
+            width: 75px;
+            height: 75px;
+            border: 1px solid #000;
+        }
+
+        .qr-text {
+            font-size: 12px;
+            color: #333;
+            text-align: left;
+        }
+
+        .spotify-link-btn {
+            display: inline-block;
+            margin-top: 4px;
+            color: #1DB954;
+            font-weight: bold;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+
+        .btn-container {
+            text-align: center;
+            padding-bottom: 15px;
+        }
+
+        button {
+            background: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            padding: 8px 35px;
+            font-family: 'MS Sans Serif', Tahoma, sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+
+        button:active {
+            border-top: 2px solid #000000;
+            border-left: 2px solid #000000;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .falling-item {
+            position: fixed;
+            top: -10vh;
+            font-size: 24px;
+            animation: fall linear forwards;
+            z-index: 1;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* THANH LỜI CHÚC CHẠY CHỮ - BẮT ĐẦU ẨN (DISPLAY: NONE) */
+        .bottom-ticker-bar {
+            display: none; /* Mặc định ẩn lúc mới mở trang */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #e6005c;
+            border-top: 3px solid #ffcc00;
+            color: #ffffff;
+            padding: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            z-index: 999;
+            box-shadow: 0 -4px 15px rgba(230, 0, 92, 0.4);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        .ticker-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 22s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cửa sổ hệ điều hành -->
+    <div class="win-window" id="mainWindow">
+        <div class="title-bar">
+            <span id="windowTitle">⚠️ C:\WIN999\SYSTEM_ALERT.EXE</span>
+            <div class="close-btn" onclick="fakeError()">X</div>
+        </div>
+        <div class="content">
+            <div class="alert-box">
+                <div class="icon" id="windowIcon">⚠️</div>
+                <div class="message" id="windowMessage">
+                    <strong>LỖI HỆ THỐNG NGHIÊM TRỌNG!</strong><br><br>
+                    Hệ điều hành <i>Win999</i> phát hiện <b>unknown user</b> đang sử dụng thiết bị này.<br><br>
+                    Yêu cầu nhận ngay lời chúc 20/10 để khôi phục! 
+                </div>
+            </div>
+
+            <!-- Trình phát nhạc Spotify & Mã QR -->
+            <div class="spotify-container" id="spotifyBox">
+                <div class="spotify-title">🎵 WIN999 MEDIA PLAYER - NHẠC ĐÊ BẠN EY!</div>
+                <iframe class="spotify-iframe" src="https://open.spotify.com/embed/track/6IHLOkgZftkcqS3fM0jMCT?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                
+                <div class="qr-section">
+                    <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://open.spotify.com/track/6IHLOkgZftkcqS3fM0jMCT" alt="Spotify QR Code">
+                    <div class="qr-text">
+                        <span>Quét mã QR hoặc bấm link dưới để mở bằng Spotify:</span><br>
+                        <a href="https://open.spotify.com/track/6IHLOkgZftkcqS3fM0jMCT" target="_blank" class="spotify-link-btn">🎧 Mở trong ứng dụng Spotify ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-container">
+            <button id="actionBtn" onclick="fakeError()">[ Yass ]</button>
+        </div>
+    </div>
+
+    <!-- THANH CHẠY CHỮ QUẢNG CÁO (SẼ HIỆN KHI BẤM YASS) -->
+    <div class="bottom-ticker-bar" id="tickerBar">
+        <div class="ticker-content">
+             Gửi bạn — Nhân ngày 20/10, Sơn chúc bạn luôn vui vẻ, xinh đẹp, học hành thuận lợi và gặp nhiều may mắn nhé! Chúc bạn có một ngày 20/10 thật vui và nhận được thật nhiều quà. Happy Women’s Day!
+        </div>
+    </div>
+
+    <script>
+        let isActivated = false;
+
+        function createFallingItem() {
+            const item = document.createElement('div');
+            item.classList.add('falling-item');
+            
+            const icons = ['🌸', '🌺', '💖', '✨', '💌', '🎉', '🎵'];
+            item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = Math.random() * 3 + 3 + 's';
+            item.style.fontSize = Math.random() * 15 + 15 + 'px';
+
+            document.body.appendChild(item);
+
+            setTimeout(() => {
+                item.remove();
+            }, 6000);
+        }
+
+        function fakeError() {
+            if (isActivated) return;
+            isActivated = true;
+
+            // Đổi màu nền sang xanh pastel
+            document.body.classList.add('happy-mode');
+
+            setTimeout(() => {
+                alert("Tiến trình cài đặt đã đạt 100%.\nChúc 20/10 vui vẻ :P");
+                
+                // Thả hoa & nốt nhạc rơi liên tục
+                setInterval(createFallingItem, 150);
+
+                // Cập nhật giao diện cửa sổ
+                document.getElementById('windowTitle').innerText = "💖 C:\\WIN999\\HAPPINESS.EXE";
+                document.getElementById('windowIcon').innerText = "🌸";
+                document.getElementById('windowMessage').innerHTML = "<strong>ĐÃ KHÔI PHỤC HỆ THỐNG!</strong><br><br>Gửi đến <b>unknown user</b>:";
+                
+                // Hiện trình phát nhạc Spotify & QR
+                document.getElementById('spotifyBox').style.display = 'block';
+
+                // HIỆN THANH LỜI CHÚC CHẠY CHỮ DƯỚI MÀN HÌNH
+                document.getElementById('tickerBar').style.display = 'block';
+
+                // Đổi nút bấm thành [ Hoàn tất ]
+                const btn = document.getElementById('actionBtn');
+                btn.innerText = "[ Hoàn tất ]";
+                
+                // Khi bấm Hoàn tất -> Ẩn cửa sổ chính để ngắm màn hình hoa rơi + dòng chữ chạy
+                btn.onclick = function() {
+                    document.getElementById('mainWindow').style.display = 'none';
+                };
+            }, 300);
+        }
+    </script>
+
+</body>
+</html>
